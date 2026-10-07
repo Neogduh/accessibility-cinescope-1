@@ -24,49 +24,70 @@ export default function App() {
 
   return (
     <>
-      <div className="topbar">
-        <div className="brand" onClick={() => setQuery("")}>CinéScope</div>
-        <div className="menu">
+      <header className="topbar">
+        <button className="brand" onClick={() => setQuery("")} aria-label="Retourner à l'accueil de CinéScope">
+          CinéScope
+        </button>
+        <nav className="menu" aria-label="Navigation principale">
           <a href="#programme">Programme</a>
           <a href="#infos">Informations</a>
-        </div>
-      </div>
+        </nav>
+      </header>
 
-      <div className="page">
+      <main className="page">
         <h1>Films à l’affiche</h1>
         <p className="intro">Découvrez la programmation de cette semaine.</p>
-        <input
-          className="search"
-          placeholder="Rechercher un film"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-
-        <div id="programme" className="film-grid">
-          {filteredFilms.map((film) => (
-            <div className="film-card" key={film.id} onClick={() => setSelected(film.title)}>
-              <img src={film.poster} />
-              <div className="film-content">
-                <div className={film.available ? "availability available" : "availability unavailable"} />
-                <h4>{film.title}</h4>
-                <p>{film.genre} · {film.time}</p>
-                <button
-                  className="favorite"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    toggleFavorite(film.id);
-                  }}
-                >
-                  {favorites.includes(film.id) ? "★" : "☆"}
-                </button>
-              </div>
-            </div>
-          ))}
+        <div className="search-field">
+          <label htmlFor="film-search">Rechercher un film</label>
+          <input
+            id="film-search"
+            className="search"
+            placeholder="Titre du film"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
         </div>
 
-        {selected && <p className="selection">Film sélectionné : {selected}</p>}
-      </div>
+        <section id="programme" className="film-grid" aria-label="Films à l'affiche">
+          {filteredFilms.map((film) => (
+            <article className="film-card" key={film.id}>
+              <button
+                className="film-select"
+                onClick={() => setSelected(film.title)}
+                aria-label={`Sélectionner le film ${film.title}`}
+              >
+                <img src={film.poster} alt={`Affiche du film ${film.title}: la décrire en temps normale`} />
+                <span className="film-content">
+                  <span className="availability-wrapper">
+                    <span
+                      className={film.available ? "availability available" : "availability unavailable"}
+                      aria-hidden="true"
+                    />
+                    <span>{film.available ? "Places disponibles" : "Places indisponibles"}</span>
+                  </span>
+                  <span className="film-title">{film.title}</span>
+                  <span className="film-details">{film.genre} · {film.time}</span>
+                </span>
+              </button>
+              <button
+                className="favorite"
+                onClick={() => toggleFavorite(film.id)}
+                aria-label={favorites.includes(film.id) ? `Retirer ${film.title} des favoris` : `Ajouter ${film.title} aux favoris`}
+                aria-pressed={favorites.includes(film.id)}
+                title={favorites.includes(film.id) ? "Retirer des favoris" : "Ajouter aux favoris"}
+              >
+                {favorites.includes(film.id) ? "★" : "☆"}
+              </button>
+            </article>
+          ))}
+        </section>
+
+        {selected && <p className="selection" aria-live="polite">Film sélectionné : {selected}</p>}
+        <section id="infos" className="infos" aria-labelledby="infos-title">
+          <h2 id="infos-title">Informations</h2>
+          <p>Les séances affichées correspondent à la programmation de cette semaine.</p>
+        </section>
+      </main>
     </>
   );
 }
-
