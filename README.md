@@ -17,6 +17,7 @@
 - Le point rouge/vert n'indique pas sa signification (probablement la disponibilité d'une séance).
 - Au survol, aucun texte n'explique la fonction des éléments.
 - Lors de la navigation au clavier avec `Tab`, la position sur la page n'est pas visible.
+- La fonctionnalité de sélection de film lorsqu'on clique dessus n'est pas disponible au clavier.
 
 ### Justification de la correction de 3 éléments
 - Nous avons remplacé les `div` par des éléments HTML natifs (`header`, `nav`, `main`, `button`, etc.) afin que les technologies d'assistance puissent identifier la structure et le rôle de chaque élément.
