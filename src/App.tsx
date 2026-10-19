@@ -4,9 +4,9 @@ import posterMemoire from "./assets/memoire.svg";
 import posterOrbite from "./assets/orbite.svg";
 
 const films = [
-  { id: 1, title: "Après l’aube", genre: "Drame", time: "18 h 10", available: true, poster: posterAube },
-  { id: 2, title: "La mémoire des murs", genre: "Documentaire", time: "19 h 30", available: false, poster: posterMemoire },
-  { id: 3, title: "Orbite 9", genre: "Science-fiction", time: "21 h 00", available: true, poster: posterOrbite },
+  { id: 1, title: "Après l’aube", genre: "Drame", time: "18 h 10", available: true, poster: posterAube, coverDescription: "Todo" },
+  { id: 2, title: "La mémoire des murs", genre: "Documentaire", time: "19 h 30", available: false, poster: posterMemoire, coverDescription: "Todo" },
+  { id: 3, title: "Orbite 9", genre: "Science-fiction", time: "21 h 00", available: true, poster: posterOrbite, coverDescription: "Todo" },
 ];
 
 export default function App() {
@@ -56,7 +56,7 @@ export default function App() {
                 onClick={() => setSelected(film.title)}
                 aria-label={`Sélectionner le film ${film.title}`}
               >
-                <img src={film.poster} alt={`Affiche du film ${film.title}: la décrire en temps normale`} />
+                <img src={film.poster} alt={`Affiche du film ${film.title}: ${film.coverDescription}`} />
                 <span className="film-content">
                   <span className="availability-wrapper">
                     <span
@@ -65,7 +65,7 @@ export default function App() {
                     />
                     <span>{film.available ? "Places disponibles" : "Places indisponibles"}</span>
                   </span>
-                  <span className="film-title">{film.title}</span>
+                  <h3 className="film-title">{film.title}</h3>
                   <span className="film-details">{film.genre} · {film.time}</span>
                 </span>
               </button>
